@@ -1,0 +1,53 @@
+﻿@model ProcPagination.Models.PostViewModal
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Body</th>
+    </tr>
+    @{
+        int rowcount = 0;
+    }
+    @foreach (var item in Model.posts)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Body)
+            </td>
+        </tr>
+        rowcount++;
+    }
+</table>
+@using (Html.BeginForm("Index", "Post", FormMethod.Post))
+{
+    @Html.HiddenFor(model => Model.backBack)
+    @Html.HiddenFor(model => Model.nextPage)
+    if (@Model.backBack == 0)
+    {
+        <input type="submit" class="btn btn-primary" name="btnSumitBack" value="Back" id="btnBack" disabled />
+    }
+    else
+    {
+        <input type="submit" class="btn btn-primary" name="btnSumitBack" value="Back" id="btnBack" />
+    }
+    if (rowcount < 5)
+    {
+        <input type="submit" class="btn btn-primary" name="btnSumitNext" value="Next" id="btnNext" disabled />
+    }
+    else
+    {
+        <input type="submit" class="btn btn-primary" name="btnSumitNext" value="Next" id="btnNext" />
+    }
+}
+
+
